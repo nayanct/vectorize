@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>vectorize — raster to SVG</title>
+  <meta name="description" content="Turn raster images into clean SVG vector art, right in your browser." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <main class="page">
+
+    <!-- ============ LANDING ============ -->
+    <section class="landing" id="landing">
+      <p class="eyebrow">01 — raster in, vector out</p>
+      <h1 class="title">vectorize</h1>
+      <p class="sub">Drop an image and it comes back as a clean, scalable SVG — traced region by region, right here in the browser.</p>
+
+      <div class="frame">
+        <span class="corner corner--tl" aria-hidden="true"></span>
+        <span class="corner corner--tr" aria-hidden="true"></span>
+        <span class="corner corner--bl" aria-hidden="true"></span>
+        <span class="corner corner--br" aria-hidden="true"></span>
+
+        <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Choose an image or drop one here">
+          <p class="dropzone__title">Open a file, or drop it here</p>
+          <p class="dropzone__formats">PNG · JPG · WEBP · BMP · TIFF, up to 20 MB</p>
+        </div>
+        <input type="file" id="fileInput" accept=".png,.jpg,.jpeg,.webp,.bmp,.tif,.tiff" hidden />
+      </div>
+    </section>
+
+    <!-- ============ WORKSPACE ============ -->
+    <section class="workspace" id="workspace" hidden>
+
+      <div class="card">
+
+        <div class="row row--file">
+          <span class="file-name" id="fileName">—</span>
+          <button type="button" class="link-btn" id="swapFile">choose a different file</button>
+        </div>
+
+        <hr class="rule" />
+
+        <div class="field">
+          <div class="row">
+            <label for="detail">Detail</label>
+            <span class="value" id="detailValue">7</span>
+          </div>
+          <input type="range" id="detail" min="1" max="10" step="1" value="7" />
+        </div>
+
+        <div class="field">
+          <div class="row">
+            <label for="colors">Color accuracy</label>
+            <span class="value" id="colorsValue">72</span>
+          </div>
+          <input type="range" id="colors" min="8" max="192" step="1" value="72" />
+        </div>
+
+        <div class="field field--toggles">
+          <label class="toggle">
+            <input type="checkbox" id="seamFix" checked />
+            <span class="toggle__box"></span>
+            <span>Anti-gap overlap</span>
+          </label>
+          <label class="toggle">
+            <input type="checkbox" id="preserveTransparency" checked />
+            <span class="toggle__box"></span>
+            <span>Preserve transparency</span>
+          </label>
+        </div>
+
+        <hr class="rule" />
+
+        <button type="button" class="btn btn--primary" id="vectorizeBtn">Vectorize</button>
+
+        <div class="progress-block" id="progressBlock" hidden>
+          <div class="row">
+            <span class="mono" id="stageText">starting</span>
+            <span class="mono" id="pctText">0%</span>
+          </div>
+          <div class="bar">
+            <div class="bar__fill" id="progressFill"></div>
+          </div>
+          <div class="row">
+            <span class="mono muted" id="etaText">estimated time left: —</span>
+            <button type="button" class="link-btn link-btn--danger" id="cancelBtn">cancel</button>
+          </div>
+        </div>
+
+        <div class="result-block" id="resultBlock" hidden>
+          <a class="btn btn--primary" id="downloadBtn" download>Download SVG</a>
+        </div>
+
+        <p class="error" id="errorText" hidden></p>
+        <p class="server-note" id="serverNote" hidden></p>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
